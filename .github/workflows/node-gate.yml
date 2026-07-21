@@ -7,12 +7,18 @@ on:
         description: "Run npm publish --dry-run (non-failing)"
         type: boolean
         default: false
+      submodules:
+        description: "Passed through to actions/checkout `submodules` (e.g. 'recursive' to init git submodules; '' = none)"
+        type: string
+        default: ""
 
 jobs:
   gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          submodules: ${{ inputs.submodules }}
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
